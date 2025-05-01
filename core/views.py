@@ -42,16 +42,18 @@ class FindMissingPersonView(APIView):
             if match_result["matched"]:
                 return Response(
                     {
-                        "message": "Person matched in camera.",
+                        "message": "Person founded.",
                         "document_id": doc_id,
                         "match_frame": match_result["matched_image_url"],
+                        "match_camera": match_result["camera"],
+                        "matched_at": match_result["matched_at"],
                     },
                     status=status.HTTP_200_OK,
                 )
             else:
                 return Response(
                     {
-                        "message": "Person no match found in camera.",
+                        "message": "Person not founded.",
                         "document_id": doc_id,
                     },
                     status=status.HTTP_201_CREATED,
