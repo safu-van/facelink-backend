@@ -16,7 +16,10 @@ def recognize_face(image_path):
         return {"matched": False}
 
     # IP Cameras to check
-    ip_cameras = [("Cam 1", "rtsp://192.168.0.117:8080/h264.sdp")]
+    ip_cameras = [
+        ("Cam 1", "rtsp://10.12.15.168:8080/h264.sdp"),
+        ("Cam 2", "rtsp://10.12.15.170:8080/h264.sdp"),
+    ]
 
     for cam_name, cam_url in ip_cameras:
         cap = cv2.VideoCapture(cam_url, cv2.CAP_FFMPEG)
@@ -36,7 +39,7 @@ def recognize_face(image_path):
 
                 for encoding in encodings:
                     match = face_recognition.compare_faces(
-                        [image_encoding], encoding, tolerance=0.6
+                        [image_encoding], encoding, tolerance=0.5
                     )
                     if match[0]:
                         # Get current date and time
